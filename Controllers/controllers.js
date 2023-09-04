@@ -32,9 +32,7 @@ module.exports.login = async (req, res, next) => {
       bcrypt.compare(password, user.password, function (err, result) {
         if (result === true) {
           const fullName = user.fullname;
-          const token = jwt.sign({ email }, "SuperSecretKey", {
-            expiresIn: "130m",
-          });
+          const token = jwt.sign({ email }, "SuperSecretKey");
           res.json({ created: true, token, fullName });
         } else {
           res.json({ error: "Invalid password" });
@@ -48,6 +46,9 @@ module.exports.login = async (req, res, next) => {
     res.send(error);
   }
 };
+
+
+
 
 module.exports.addNotes = async (req, res, next) => {
   const { email } = req.user;
